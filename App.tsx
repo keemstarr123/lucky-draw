@@ -10,6 +10,11 @@ const App: React.FC = () => {
   const [winner, setWinner] = useState<Prize | null>(null);
   const [showResult, setShowResult] = useState(false);
 
+  // 🔐 Generate reward code once per mount
+  const [rewardCode] = useState(
+    () => `SHOP-${Math.random().toString(36).substring(2, 8).toUpperCase()}`
+  );
+
   const handleStartSpin = () => {
     if (isSpinning || winner) return;
     setIsSpinning(true);
@@ -38,11 +43,14 @@ const App: React.FC = () => {
             className="flex flex-col items-center gap-6"
           >
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold leading-tight bg-clip-text text-transparent bg-gradient-to-r from-slate-900 via-slate-700 to-slate-900 drop-shadow-sm max-w-4xl">
-              <span className="font-extrabold text-transparent bg-clip-text bg-gradient-to-tr from-pink-500 to-orange-500">Tap. Spin. Win. </span>Your Surprise Starts Now!
+              <span className="font-extrabold text-transparent bg-clip-text bg-gradient-to-tr from-pink-500 to-orange-500">
+                Tap. Spin. Win.{" "}
+              </span>
+              Your Surprise Starts Now!
             </h1>
             <p className="text-sm md:text-base text-slate-600 max-w-xl">
-              Thank you for being part of our journey — you matter to us.
-              As a token of appreciation, we’ve prepared something special just for you! 🎉
+              Thank you for being part of our journey — you matter to us. As a token
+              of appreciation, we’ve prepared something special just for you! 🎉
             </p>
 
             {/* CTA */}
@@ -107,65 +115,64 @@ const App: React.FC = () => {
             >
               <div className="absolute top-0 left-0 w-full h-24 bg-gradient-to-br from-orange-100 to-pink-100 z-0" />
 
-                <div className="relative z-10 -mt-2">
-                  <div className="mx-auto w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-lg mb-4 text-yellow-500 ring-4 ring-white">
-                    <Trophy className="w-10 h-10" strokeWidth={1.5} />
-                  </div>
-
-                  <h2 className="text-2xl font-display font-bold text-slate-900">
-                    You Won!
-                  </h2>
-
-                  <p className="text-slate-500 text-sm mb-6">
-                    Enjoy your new reward 🎁
-                  </p>
-
-                  <div className="bg-slate-50 rounded-3xl p-4 border border-slate-100 mb-6 shadow-sm">
-                    <div className="relative w-full h-32 rounded-2xl overflow-hidden mb-3">
-                      <img
-                        src={winner.image}
-                        alt={winner.name}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                    <div className="text-left">
-                      <p className="text-xs text-slate-400 font-bold uppercase tracking-wider">
-                        {winner.rarity}
-                      </p>
-                      <p className="text-lg font-bold text-slate-800 leading-tight">
-                        {winner.name}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Reward Code Section */}
-                  <div className="text-center mb-5">
-                    <p className="text-[11px] text-slate-400 mb-2">
-                      Copy the code below & redeem it in the Shopleee app ✨
-                    </p>
-
-                    <div className="flex items-center justify-between bg-slate-100 px-4 py-2 rounded-xl border border-slate-200 text-slate-600 font-mono text-sm">
-                      <span>{rewardCode}</span>
-
-                      <button
-                        onClick={() => {
-                          navigator.clipboard.writeText(rewardCode);
-                        }}
-                        className="text-[11px] font-semibold text-blue-600 hover:text-blue-700"
-                      >
-                        Copy
-                      </button>
-                    </div>
-                  </div>
-
-                  <button
-                    onClick={() => window.location.reload()}
-                    className="w-full py-3.5 rounded-2xl bg-slate-900 text-white font-bold hover:bg-slate-800 transition-colors"
-                  >
-                    Close
-                  </button>
+              <div className="relative z-10 -mt-2">
+                <div className="mx-auto w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-lg mb-4 text-yellow-500 ring-4 ring-white">
+                  <Trophy className="w-10 h-10" strokeWidth={1.5} />
                 </div>
 
+                <h2 className="text-2xl font-display font-bold text-slate-900">
+                  You Won!
+                </h2>
+
+                <p className="text-slate-500 text-sm mb-6">
+                  Enjoy your new reward 🎁
+                </p>
+
+                <div className="bg-slate-50 rounded-3xl p-4 border border-slate-100 mb-6 shadow-sm">
+                  <div className="relative w-full h-32 rounded-2xl overflow-hidden mb-3">
+                    <img
+                      src={winner.image}
+                      alt={winner.name}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="text-left">
+                    <p className="text-xs text-slate-400 font-bold uppercase tracking-wider">
+                      {winner.rarity}
+                    </p>
+                    <p className="text-lg font-bold text-slate-800 leading-tight">
+                      {winner.name}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Reward Code Section */}
+                <div className="text-center mb-5">
+                  <p className="text-[11px] text-slate-400 mb-2">
+                    Copy the code below & redeem it in the Shopleee app ✨
+                  </p>
+
+                  <div className="flex items-center justify-between bg-slate-100 px-4 py-2 rounded-xl border border-slate-200 text-slate-600 font-mono text-sm">
+                    <span>{rewardCode}</span>
+
+                    <button
+                      onClick={() => {
+                        navigator.clipboard.writeText(rewardCode);
+                      }}
+                      className="text-[11px] font-semibold text-blue-600 hover:text-blue-700"
+                    >
+                      Copy
+                    </button>
+                  </div>
+                </div>
+
+                <button
+                  onClick={() => window.location.reload()}
+                  className="w-full py-3.5 rounded-2xl bg-slate-900 text-white font-bold hover:bg-slate-800 transition-colors"
+                >
+                  Close
+                </button>
+              </div>
             </motion.div>
           </motion.div>
         )}

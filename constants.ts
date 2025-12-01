@@ -12,28 +12,28 @@ export const PRIZES: Prize[] = [
   {
     id: '2',
     name: 'Limited-edition Pickeball Paddle',
-    image: '/paddle.png',
+    image: '/paddle.jpg',
     color: 'from-red-500 to-red-800',
     rarity: 'Epic'
   },
   {
     id: '3',
     name: 'RM500 SportsDirect Gift Card',
-    image: '/sports.png',
+    image: '/sports.jpg',
     color: 'from-green-500 to-green-900',
     rarity: 'Epic'
   },
   {
     id: '4',
     name: 'RM50 Grab Gift Card',
-    image: '/grab.jpg',
+    image: '/grab.png',
     color: 'from-gray-700 to-black',
     rarity: 'Common'
   },
   {
     id: '5',
     name: 'Vip Court Exclusive Experience With Pros',
-    image: '/court.jpg',
+    image: '/court.png',
     color: 'from-yellow-400 to-orange-600',
     rarity: 'Rare'
   },
